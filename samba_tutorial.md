@@ -41,10 +41,10 @@ ___
 > | Network gateway (ADSL Router)     | 192.168.1.254                   |
 > | DNS Server                        | 192.168.1.3                     ||
 >  
-> ### Shares 
+> ### Shares
 >
 > | Share Name                        | Server   | AD     |
-> |-----------------------------------|-------------------|
+> |-----------------------------------|----------|--------|
 > | Domain Users                      | WS1      | yes    |
 > | Dev Admins   (create now)         | WS1      | yes    |
 > | Dev Team 1   (create now)         | WS1      | yes    |
@@ -66,7 +66,7 @@ ___
 > ### Additional notes: 
 > This tutorial assumes that your Windows server is the Primary DHCP and DNS server. As such ubuntu should be setup as **MANUAL NETWORK SETTING**. If you are going to install ubuntu from scratch., which you should, then just after the installer discovers your hardware configuration, ***press on the back button*** which will allow you to choose manual network settings. Refer to Data Used above for IP settings. make sure to use the right IP address for your network.
 >
-> ### This tutorial procedures was tested with the following software:
+> ### This tutorial's procedures was tested with the following software:
 > 
 > | Option                            | Data                            |
 > |-----------------------------------|---------------------------------|
