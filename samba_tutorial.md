@@ -75,37 +75,45 @@ ___
 > | Windows Small Business Server     | 2011                 AD         |
 > | Windows Small Business Server     | 2008 and 2008 R2     AD         |
 >
-> So before starting this Samba configuration make sure that the Windows server is on the LAN and operational with all the groups you need to use created. don't forget to also **add members to the groups**
+> So before starting this Samba configuration make sure that the Windows server is on the LAN and operational with all the groups you need to use created. don't forget to also **add members to the groups**.
+> 
+> Install ubuntu with no packages. It's best not to select Samba during setup as we will do this manually in step 1.
+>
+> ntp is for Time synchronization between PDC and this server
 
  * ### **Step 1** - Update and Getting the necessary packages
+
+	To make it easier stay logged in as root:
 	
-    If you did not select samba during server install:
+	~~~
+		sudo bash
+	~~~
+
+    
+	If you did not select samba during server install:
     
 	~~~bash
-		apt-get update && sudo apt-get upgrade
+		apt-get update && sudo apt-get -y upgrade
+		sudo apt-get -y dist-upgrade
         
-        sudo apt-get install python-software-properties
+		sudo apt-get install python-software-properties
         
-        apt-get install ntp krb5-user samba smbfs smbclient winbind
+		apt-get install ntp krb5-user samba smbfs smbclient winbind
         
-        // add-apt-repository ppa:xespackages/samba4
-        
-        sudo apt-get update
+		sudo apt-get update
 		sudo apt-get -y upgrade
 		sudo apt-get -y dist-upgrade
 		sudo apt-get -y install -f
 		sudo apt-get -y autoclean
-        
-        sudo apt-get -y install samba winbind
 	~~~
 	
-    Otherwise ntp is for Time synchronization between PDC and this server 
+	Otherwise: 
     
 	~~~bash
-		apt-get install krb5-user ntp
-    ~~~
+		apt-get install ntp krb5-user smbfs smbclient winbind
+ 	~~~
     
-    If your having trouble try disaling the firewall.
+    If your having trouble try disaling the firewall. **ONLY IF PROBLEMS OCCUR LATER**
     
     ~~~
         sudo ufw disable
@@ -118,20 +126,17 @@ ___
     ~~~
 ___
 
- * ### **Step 2** - Configuring your DNS server
+ * ### **Step 2** - Configure NTP
  
-   Check resolv to make sure DNS server is listed
+	Sync time with windows AD
  	
-   ~~~
-		vim /etc/resolv.conf
-   ~~~
-   
-	you should see:
-    
-   ~~~
-		nameserver 192.168.1.2
-		search SIACOM.LOCAL
-   ~~~
+	~~~
+		vim /etc/ntp.conf
+
+		make sure there's only one line with server . . .  and make it:
+		
+		server 192.168.1.3
+	~~~
 ___
 
  * ### **Step 3** - Configuring Kerberos
